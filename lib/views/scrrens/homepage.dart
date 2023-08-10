@@ -1,9 +1,11 @@
 import 'dart:math';
 
+import 'package:animation_app/utils/MyRoutes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/planetscontroller.dart';
+import '../../controllers/themeController.dart';
 
 class homepage extends StatefulWidget {
   const homepage({Key? key}) : super(key: key);
@@ -30,6 +32,12 @@ class _homepageState extends State<homepage> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
+            Provider.of<ThemeProvider>(context, listen: false)
+                .changeTheme();
+          }, icon: Icon(Icons.nights_stay_outlined))
+        ],
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(20),
@@ -48,7 +56,7 @@ class _homepageState extends State<homepage> with SingleTickerProviderStateMixin
                 children: [
                   GestureDetector(
                     onTap: (){
-                      Navigator.pushNamed(context, 'detailpage',arguments: index);
+                      Navigator.of(context).pushNamed(MyRoutes.detailpage,arguments: index);
                     },
                     child: Container(
                       margin: const EdgeInsets.only(left: 80,top: 20,bottom: 20,right: 20),
@@ -61,6 +69,11 @@ class _homepageState extends State<homepage> with SingleTickerProviderStateMixin
                             padding: EdgeInsets.all(10),
                             height: 150,
                             width: 200,
+                            // decoration: BoxDecoration(
+                            //   image: DecorationImage(
+                            //     image: AssetImage("assets/images/p3.png")
+                            //   ),
+                            // ),
                             child: Column(
                               children: [
                                 Container(
@@ -116,6 +129,7 @@ class _homepageState extends State<homepage> with SingleTickerProviderStateMixin
           },itemCount: pro.planets.length);
         }
       ),
+      // backgroundColor: Colors.black,
     );
   }
 }
